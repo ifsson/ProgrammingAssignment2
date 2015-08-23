@@ -1,16 +1,62 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Initial functions
+##makeVector <- function(x = numeric()) {
+##        m <- NULL
+##        set <- function(y) {
+##                x <<- y
+##                m <<- NULL
+##        }
+##        get <- function() x
+##        setmean <- function(mean) m <<- mean
+##        getmean <- function() m
+##        list(set = set, get = get,
+##             setmean = setmean,
+##             getmean = getmean)
+##}
+##cachemean <- function(x, ...) {
+##        m <- x$getmean()
+##        if(!is.null(m)) {
+##                message("getting cached data")
+##                return(m)
+##        }
+##        data <- x$get()
+##        m <- mean(data, ...)
+##        x$setmean(m)
+##        m
+##}
 
 ## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
-
+        inverted <- NULL
+        set <- function(y) {
+                x <<- y
+                inverted <<- NULL
+        }
+        get <- function() x
+        setsolve <- function(solve) inverted <<- solve
+        getsolve <- function() inverted
+        list    (
+                set = set, 
+                get = get,
+                setsolve = setsolve,
+                getsolve = getsolve
+                )
 }
 
 
 ## Write a short comment describing this function
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+inverted <- x$getsolve() 
+    if(!is.null(inverted)) {
+        message("getting cached data.")
+        return(inverted)
+    }
+    data <- x$get()
+    inverted <- solve(data)
+    x$setsolve(inverted)
+    inverted   
+   
 }
+
 #testing changes
